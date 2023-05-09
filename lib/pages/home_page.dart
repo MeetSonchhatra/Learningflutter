@@ -1,6 +1,8 @@
 import 'package:egapp/pages/home_detail_page.dart';
+import 'package:egapp/utils/routes.dart';
 import 'package:egapp/widgets/drawer.dart';
 import 'package:egapp/widgets/themes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -34,6 +36,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: MyTheme.creamColor,
+        floatingActionButton: FloatingActionButton(
+          onPressed: ()=>Navigator.pushNamed(context, MyRoutes.cartroute),
+          backgroundColor: MyTheme.darkblueish,
+          child: Icon(CupertinoIcons.cart),),
         body: SafeArea(
           child: Container(
             padding: Vx.m32,

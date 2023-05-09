@@ -1,3 +1,5 @@
+import 'package:egapp/pages/cart_page.dart';
+import 'package:egapp/pages/home_detail_page.dart';
 import 'package:egapp/pages/login_page.dart';
 import 'package:egapp/utils/routes.dart';
 import 'package:egapp/widgets/themes.dart';
@@ -21,7 +23,8 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context) => HomePage(),
         MyRoutes.homeroute: (context) => HomePage(),
-        MyRoutes.loginroute: (context) => LoginPage()
+        MyRoutes.loginroute: (context) => LoginPage(),
+        MyRoutes.cartroute: (context) => CartPage()
       },
     );
   }
