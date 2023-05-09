@@ -12,5 +12,6 @@ class MyTheme{
             toolbarTextStyle: Theme.of(context).textTheme.headlineSmall, titleTextStyle: Theme.of(context).textTheme.headlineSmall,
 
           ),);
-  
+    static Color creamColor = Color(0xfff5f5f5);
+    static Color darkblueish = Color(0xff403b58); 
   }
