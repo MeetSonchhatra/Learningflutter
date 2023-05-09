@@ -36,14 +36,34 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-            ? ListView.builder(
-                itemCount: CatalogModel.items.length,
+            // ? ListView.builder(
+            //     itemCount: CatalogModel.items.length,
+            //     itemBuilder: (context, index) {
+            //       return ItemWidget(
+            //         item: CatalogModel.items[index],
+            //         key: Key("1"),
+            //       );
+            //     },
+            //   )'
+
+            ? GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 15),
                 itemBuilder: (context, index) {
-                  return ItemWidget(
-                    item: CatalogModel.items[index],
-                    key: Key("1"),
-                  );
+                  final item = CatalogModel.items[index];
+                  return Card(
+                      clipBehavior: Clip.antiAlias,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      child: GridTile(
+                        header: Text(item.name),
+                        child: Image.network(item.image),
+                        footer: Text(item.price.toString()),
+                      ));
                 },
+                itemCount: CatalogModel.items.length,
               )
             : Center(child: CircularProgressIndicator()),
       ),
