@@ -35,11 +35,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: MyTheme.creamColor,
+        backgroundColor: context.canvasColor,
         floatingActionButton: FloatingActionButton(
-          onPressed: ()=>Navigator.pushNamed(context, MyRoutes.cartroute),
+          onPressed: () => Navigator.pushNamed(context, MyRoutes.cartroute),
           backgroundColor: MyTheme.darkblueish,
-          child: Icon(CupertinoIcons.cart),),
+          child: Icon(CupertinoIcons.cart),
+        ),
         body: SafeArea(
           child: Container(
             padding: Vx.m32,
@@ -68,8 +69,17 @@ class CatalogHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        "Catalog App".text.xl5.bold.color(MyTheme.darkblueish).make(),
-        "Trending Products".text.xl3.make()
+        "Catalog App"
+            .text
+            .xl5
+            .bold
+            .color(context.theme.colorScheme.secondary)
+            .make(),
+        "Trending Products"
+            .text
+            .xl2
+            .color(context.theme.colorScheme.secondary)
+            .make()
       ],
     );
   }
@@ -81,13 +91,16 @@ class CatalogList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: true,
+        shrinkWrap: true,
         itemCount: CatalogModel.items.length,
         itemBuilder: (context, index) {
-          final catalog = CatalogModel.items[index];
+          final catalog = CatalogModel.getByPosition(index);
           return InkWell(
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeDetailPage(catalog: catalog))),
-            child: CatalogItem(catalog: catalog));
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeDetailPage(catalog: catalog))),
+              child: CatalogItem(catalog: catalog));
         });
   }
 }
@@ -105,8 +118,8 @@ class CatalogItem extends StatelessWidget {
         child: Row(
       children: [
         Hero(
-          tag: Key(catalog.id.toString()),
-          child: CatalogImage(image: catalog.image)),
+            tag: Key(catalog.id.toString()),
+            child: CatalogImage(image: catalog.image)),
         Expanded(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
