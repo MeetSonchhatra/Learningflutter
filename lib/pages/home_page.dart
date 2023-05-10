@@ -1,3 +1,4 @@
+import 'package:egapp/models/cart.dart';
 import 'package:egapp/pages/home_detail_page.dart';
 import 'package:egapp/utils/routes.dart';
 import 'package:egapp/widgets/drawer.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import '../models/catalog.dart';
+import '../widgets/addtocart.dart';
 import '../widgets/item_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -100,16 +102,16 @@ class CatalogList extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => HomeDetailPage(catalog: catalog))),
-              child: CatalogItem(catalog: catalog));
+              child: CatalogItem(Catalog: catalog));
         });
   }
 }
 
 class CatalogItem extends StatelessWidget {
-  final Item catalog;
+  final Item Catalog;
 
-  const CatalogItem({Key? key, required this.catalog})
-      : assert(catalog != null),
+  const CatalogItem({Key? key, required this.Catalog})
+      : assert(Catalog != null),
         super(key: key);
 
   @override
@@ -118,28 +120,22 @@ class CatalogItem extends StatelessWidget {
         child: Row(
       children: [
         Hero(
-            tag: Key(catalog.id.toString()),
-            child: CatalogImage(image: catalog.image)),
+            tag: Key(Catalog.id.toString()),
+            child: CatalogImage(image: Catalog.image)),
         Expanded(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            catalog.name.text.lg.color(MyTheme.darkblueish).bold.make(),
-            catalog.desc.text.make(),
+            Catalog.name.text.lg.color(MyTheme.darkblueish).bold.make(),
+            Catalog.desc.text.make(),
             10.heightBox,
             ButtonBar(
               alignment: MainAxisAlignment.spaceBetween,
               buttonPadding: Vx.mH0,
               children: [
-                "\$${catalog.price}".text.bold.xl.make(),
-                ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(MyTheme.darkblueish),
-                        shape: MaterialStateProperty.all(StadiumBorder())),
-                    child: "Buy".text.make())
+                "\$${Catalog.price}".text.bold.xl.make(),
+                addtocart(Catalog: Catalog, key: Key(""),),
               ],
             ).pOnly(right: 8.0)
           ],
@@ -148,6 +144,8 @@ class CatalogItem extends StatelessWidget {
     )).white.rounded.square(150).make().py16();
   }
 }
+
+
 
 class CatalogImage extends StatelessWidget {
   final String image;

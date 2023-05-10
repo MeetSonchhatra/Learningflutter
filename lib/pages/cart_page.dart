@@ -1,3 +1,4 @@
+import 'package:egapp/models/cart.dart';
 import 'package:egapp/widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -23,8 +24,8 @@ class CartPage extends StatelessWidget {
 }
 
 class _carttotal extends StatelessWidget {
-  const _carttotal({super.key});
 
+  final  _cart = CartModel();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -32,7 +33,7 @@ class _carttotal extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          "\$9999".text.xl4.make(),
+          "\$${_cart.totalPrice}".text.xl4.make(),
           30.widthBox,
           Container(
             width: 100,
@@ -56,19 +57,21 @@ class _carttotal extends StatelessWidget {
 }
 
 class _cartList extends StatelessWidget {
-  const _cartList({super.key});
-
+final _cart = CartModel();
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 5,
+      itemCount: _cart.items.length,
       itemBuilder: (context, index) => ListTile(
         leading: Icon(Icons.done),
         trailing: IconButton(
           icon: Icon(Icons.remove_circle_outline),
-          onPressed: () {},
+          onPressed: () {
+            _cart.remove(_cart.items[index]);
+            
+          },
         ),
-        title: "Item 1 ".text.make(),
+        title: _cart.items[index].name.text.make(),
       ),
     );
   }
